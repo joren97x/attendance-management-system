@@ -1,4 +1,20 @@
-<script setup></script>
+<script setup>
+
+    import axios from "axios";
+    import { ref, onMounted } from "vue";
+
+    const user = ref(JSON.parse(localStorage.getItem('auth')))
+
+    async function fetchStudentData() {
+        const result = await axios.get(`http://localhost:5000/student/${user.value.id}`)
+        console.log(result)
+    }
+
+    onMounted(() => {
+        fetchStudentData()
+    })
+
+</script>
 
 <template>
     <v-card title="Change password">

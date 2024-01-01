@@ -1,4 +1,4 @@
-import { store, destroy, index, show, updatePassword, update } from "../models/Student.js"
+import { store, destroy, index, show, updatePassword, update, authenticate } from "../models/Student.js"
 
 export const storeStudent = (req, res) => {
     store(req.body, (err, result) => {
@@ -57,6 +57,17 @@ export const allStudent = (req, res) => {
 
 export const destroyStudent = (req, res) => {
     destroy(req.params.id, (err, result) => {
+        if(err) {
+            res.send(err)
+        }
+        else {
+            res.json(result)
+        }
+    })
+}
+
+export const login = (req, res) => {
+    authenticate(req.body, (err, result) => {
         if(err) {
             res.send(err)
         }

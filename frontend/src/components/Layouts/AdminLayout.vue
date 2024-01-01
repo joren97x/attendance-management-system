@@ -1,8 +1,8 @@
 <script setup>
     import {ref} from 'vue'
-    const drawer = ref(true)
     import router from '@/router';
-
+    
+    const drawer = ref(true)
     function logout() {
         localStorage.removeItem('auth')
         router.push('/login')

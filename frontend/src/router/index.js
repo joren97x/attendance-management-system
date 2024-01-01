@@ -34,7 +34,7 @@ const router = createRouter({
         {
             path: '/student/change-password',
             component: () => import('../components/Student/ChangePassword.vue'),
-            name: 'ChangePassword',
+            name: 'StudentChangePassword',
             meta: {layout: StudentLayout}
         },
         {
@@ -46,7 +46,7 @@ const router = createRouter({
         {
             path: '/admin/change-password',
             component: () => import('../components/Admin/ChangePassword.vue'),
-            name: 'ChangePassword',
+            name: 'AdminChangePassword',
             meta: {layout: AdminLayout}
         },
         {

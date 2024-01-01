@@ -1,6 +1,14 @@
 <script setup>
     import {ref} from 'vue'
+    import router from '@/router'
+
     const drawer = ref(true)
+    const user = JSON.parse(localStorage.getItem('auth'))
+    function logout() {
+        localStorage.removeItem('auth')
+        router.push('/login')
+    }
+
 </script>
 
 <template>
@@ -33,7 +41,7 @@
                         </v-btn>
                     </template>
                     <v-list>
-                            <v-btn variant="text" prepend-icon="mdi-logout">Logout</v-btn>
+                            <v-btn variant="text" prepend-icon="mdi-logout" @click="logout">Logout</v-btn>
                     </v-list>
                 </v-menu>
             </v-toolbar>
@@ -46,7 +54,7 @@
                                 <v-img src="https://pbs.twimg.com/media/FLyjDbtVgAAdP8s.jpg" cover h></v-img>
                             </v-card-item>
                             <v-card-item class="justify-center d-flex">
-                                <v-chip color="green">Online</v-chip>
+                                {{ user?.firstname + " " + user?.middlename + " " + user?.lastname }} <v-chip color="green">Online</v-chip>
                             </v-card-item>
                             <v-card-actions>
                                 <v-btn block variant="flat" color="blue">Edit profile</v-btn>
