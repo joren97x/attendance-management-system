@@ -58,7 +58,7 @@ export const update = (id, data, res) => {
 } 
 
 export const updatePassword = (id, data, res) => {
-    db.query("UPDATE users SET password = ? WHERE id = ?", [data, id], (err, result) => {
+    db.query("UPDATE users SET password = ? WHERE id = ?", [data.newPass, id], (err, result) => {
         if(err) {
             res(err, null)
         }

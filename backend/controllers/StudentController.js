@@ -23,6 +23,12 @@ export const updateStudent = (req, res) => {
 }
 
 export const updatePass = (req, res) => {
+
+    console.log(req.body.newPass)
+    if(req.body.newPass !== req.body.confirmNewPass) {
+        res.send('error')
+    }
+    else {
     updatePassword(req.params.id, req.body, (err, result) => {
         if(err) {
             res.send(err)
@@ -30,7 +36,10 @@ export const updatePass = (req, res) => {
         else {
             res.json(result)
         }
-    })    
+    }) 
+    }
+
+      
 }
 
 export const showStudent = (req, res) => {
