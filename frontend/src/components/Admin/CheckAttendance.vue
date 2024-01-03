@@ -4,7 +4,10 @@
     import axios from 'axios'
 
     const createAttendanceDialog = ref(false)
+    const currentAttendanceDate = ref(null)
     const date = ref(null)
+    const statusCheckbox = ref(null)
+    const attendanceRecord = ref(null)
     const snackbar = ref(false)
     const students = ref(null)
     const headers = [
@@ -29,7 +32,7 @@
 
     async function fetchAllStudents() {
         try {
-            const result = await axios.get("http://localhost:5000/student")
+            const result = await axios.get(`http://localhost:5000/student`)
             console.log(result)
             students.value = result.data
         }
@@ -38,9 +41,54 @@
         }
     }
 
-    onMounted(() => {
-        fetchAllStudents()
-    })
+    async function getAttendanceToday() {
+        try {
+            const result = await axios.get("http://localhost:5000/attendanceDate")
+            currentAttendanceDate.value = result.data
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+
+    async function setAttendance(status, student) {
+        try {
+            const result = await axios.post("http://localhost:5000/attendance",
+            {
+                attendance_date_id: currentAttendanceDate.value[0].id,
+                user_id: student.id,
+                date: new Date(),
+                status: status
+            })
+            console.log(result)
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+
+    async function getAttendanceRecord() {
+        try {
+            const result = await axios.get(`http://localhost:5000/attendance/${currentAttendanceDate.value[0].id}`)
+            attendanceRecord.value = result.data
+            console.log(result)
+        }
+        catch(error) {
+            console.log(error)
+        }
+    }
+
+    onMounted(async () => {
+        try {
+            await getAttendanceToday()
+            await fetchAllStudents()
+            await getAttendanceRecord()
+            console.log("GO?");
+        } catch (error) {
+            console.error('Error fetching attendance or students:', error)
+            // Handle the error as needed
+        }
+});
 
 
 </script>
@@ -54,6 +102,9 @@
                     <v-btn color="blue" @click="createAttendanceDialog = true">New attendance</v-btn>
                 </v-col>
             </v-row>
+            {{ currentAttendanceDate }}
+            <br>
+            {{ attendanceRecord }}
         </v-card-title>
         <v-data-table :headers="headers" :items="students" v-if="students">
             <template v-slot:item="{item}">
@@ -64,13 +115,13 @@
                     <td>
                         <v-row>
                             <v-col cols="3">
-                                <v-checkbox label="Present"></v-checkbox>
+                                <v-checkbox label="Present" @click="setAttendance('present', item)"></v-checkbox>
                             </v-col>
                             <v-col cols="3">
-                                <v-checkbox label="Absent"></v-checkbox>
+                                <v-checkbox label="Absent" @click="setAttendance('absent', item)"></v-checkbox>
                             </v-col>
                             <v-col cols="3">
-                                <v-checkbox label="Late"></v-checkbox>
+                                <v-checkbox label="Late" @click="setAttendance('late', item)"> </v-checkbox>
                             </v-col>
                         </v-row>
                     </td>

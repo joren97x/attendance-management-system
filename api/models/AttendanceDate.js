@@ -10,3 +10,14 @@ export const store = (data, res) => {
         }
     })
 } 
+
+export const show = (res) => {
+    db.query("SELECT * FROM attendance_dates ORDER BY id DESC LIMIT 1", (err, result) => {
+        if(err) {
+            res(err, null)
+        }
+        else {
+            res(err, result)
+        }
+    })
+}

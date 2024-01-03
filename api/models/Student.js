@@ -34,6 +34,7 @@ export const index = (res) => {
     })
 } 
 
+
 // export const update = (id, data, res) => {
 //     db.query("UPDATE users SET firstname = ?, middlename = ?, lastname = ?, address = ?, email = ?, phone = ?, birthday = ?, course = ?, role = ?, password = ? WHERE id = ?", [data, id], (err, result) => {
 //         if(err) {
@@ -80,7 +81,6 @@ export const destroy = (id, res) => {
 }
 
 export const authenticate = (data, res) => {
-    console.log(data)
     db.query("SELECT * FROM users WHERE email = ? AND password = ?", [data.email, data.password], (err, result) => {
         if(err) {
             res(err, null)

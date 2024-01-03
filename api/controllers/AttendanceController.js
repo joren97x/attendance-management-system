@@ -1,4 +1,4 @@
-import { store, index, show, destroy, update } from "../models/Attendance.js"
+import { store, index, show, destroy, update, attendanceWithStudents } from "../models/Attendance.js"
 
 export const storeAttendance = (req, res) => {
     store(req.body, (err, result) => {
@@ -13,6 +13,17 @@ export const storeAttendance = (req, res) => {
 
 export const showAttendance = (req, res) => {
     show(req.params.id, (err, result) => {
+        if(err) {
+            res.send(err)
+        }
+        else {
+            res.json(result)
+        }
+    })
+}
+
+export const attendance = (req, res) => {
+    attendanceWithStudents(req.params.id, (err, result) => {
         if(err) {
             res.send(err)
         }
