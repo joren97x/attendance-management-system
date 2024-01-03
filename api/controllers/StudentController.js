@@ -24,7 +24,6 @@ export const updateStudent = (req, res) => {
 
 export const updatePass = (req, res) => {
 
-    console.log(req.body.newPass)
     if(req.body.newPass !== req.body.confirmNewPass) {
         res.send('error')
     }

@@ -32,7 +32,7 @@
             </v-list>
         </v-navigation-drawer>
 
-        <v-main style="height: 100vh" class="bg-grey-lighten-3">
+        <v-main class="bg-grey-lighten-3">
             <v-toolbar color="white">
                 <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
                 <v-toolbar-title>Admin</v-toolbar-title>

@@ -8,7 +8,6 @@ export const store = (data, res) => {
         if(result.length > 0) {
             attendanceExists = true
             currentAttendance = result[0]
-            console.log(result[0])
         }
         if(!err) {
             if(result.length > 0) {
@@ -80,7 +79,7 @@ export const attendanceWithStudents = (id, res) => {
 
 
 
-export const show = (id, res) => {
+export const showAtt = (id, res) => {
     db.query("SELECT * FROM attendance WHERE attendance_date_id = ?", [id], (err, result) => {
         if(err) {
             res(err, null)
@@ -102,6 +101,17 @@ export const index = (res) => {
     })
 } 
 
+export const getAttendanceById = (id, res) => {
+    db.query("SELECT * FROM attendance WHERE user_id = ?", [id], (err, result) => {
+        if(err) {
+            res(err, null)
+        }
+        else {
+            res(err, result)
+        }
+    })
+} 
+
 export const update = (id, data, res) => {
     db.query("UPDATE attendance SET status = ? WHERE id = ?", [data, id], (err, result) => {
         if(err) {
@@ -114,7 +124,7 @@ export const update = (id, data, res) => {
 }
 
 export const destroy = (id, res) => {
-    db.query("DELETE * FROM attendance WHERE id = ?", [id], (err, result) => {
+    db.query("DELETE FROM attendance WHERE id = ?", [id], (err, result) => {
         if(err) {
             res(err, null)
         }

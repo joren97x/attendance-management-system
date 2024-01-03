@@ -1,7 +1,6 @@
 import db from '../config/Database.js'
 
 export const store = (data, res) => {
-    console.log(data)
     db.query("INSERT INTO users SET ?", [data], (err, result) => {
         if(err) {
             res(err, null)
@@ -47,7 +46,6 @@ export const index = (res) => {
 // } 
 
 export const update = (id, data, res) => {
-    console.log(data)
     db.query("UPDATE users SET ? WHERE id = ?", [data, id], (err, result) => {
         if(err) {
             res(err, null)
